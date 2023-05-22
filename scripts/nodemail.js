@@ -49,8 +49,11 @@ const arrMail = ["4neroq4@gmail.com", 'aadavidenkoweb@yandex.ru'];
 
 async function sendForm(email, company, msg, name, tel, select) {
 	console.log(email, company, msg);
-	let m = "aadavidenkoweb@yandex.ru";
-	const transporter = await nodemailer.createTransport({
+    let secondMail = "";
+	if(select === "Техническая поддержка" || select === "Интеграторам" || select === "Запрос документации" ) {
+        secondMail = 'aadavidenkoweb@yandex.ru'
+    };
+    const transporter = await nodemailer.createTransport({
 	host: "smtp.yandex.ru",      
 	port: 587,      
 	secure: false,
@@ -62,10 +65,10 @@ async function sendForm(email, company, msg, name, tel, select) {
 	const mailOption = {
 	from: "aadavidenkoweb@yandex.ru",      
 	subject: company,
-	to: ['4neroq4@gmail.com', m],      
+	to: ['4neroq4@gmail.com', secondMail],      
 	html: `
-	message sent
-	Email: ${email} ${company} ${msg} ${name} ${tel} ${select}
+	Письмо с сайта scadaint.ru
+	Письмо: ${email} ${company} ${msg} ${name} ${tel} ${select}
 	`,
 	};
 	try {
