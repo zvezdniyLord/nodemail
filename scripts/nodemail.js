@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 /*
 const transporter = nodemailer.createTransport({
 	host: "smtp.yandex.ru",
-        port: 587,
+        port: 587, 
         secure: false,
 	auth: {
         	user: "aadavidenkoweb@yandex.ru",
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
 	await transporter.sendMail(mailOpt, (error, info) => {
 		if(error) {
 		 console.log(error);
-		}
+		} 
 		res.status(201).json({email, company, message});
 	});
 	console.log(req.body.email);
@@ -45,17 +45,17 @@ router.post('/', async (req, res) => {
 */
 
 
+const arrMail = ["4neroq4@gmail.com", 'aadavidenkoweb@yandex.ru'];
 
 async function sendForm(email, company, msg, name, tel, select) {
 	console.log(email, company, msg);
-    const DEFAULT_MAIL = "4neroq4@gmail.com";
     let secondMail = "";
 	if(select === "Техническая поддержка" || select === "Интеграторам" || select === "Запрос документации" ) {
         secondMail = 'aadavidenkoweb@yandex.ru'
     };
     const transporter = await nodemailer.createTransport({
-	host: "smtp.yandex.ru",
-	port: 587,
+	host: "smtp.yandex.ru",      
+	port: 587,      
 	secure: false,
 	auth: {
 		user: "aadavidenkoweb@yandex.ru",
@@ -63,9 +63,9 @@ async function sendForm(email, company, msg, name, tel, select) {
 	}
 	});
 	const mailOption = {
-	from: "aadavidenkoweb@yandex.ru",
+	from: "aadavidenkoweb@yandex.ru",      
 	subject: company,
-	to: [DEFAULT_MAIL, secondMail],
+	to: ['4neroq4@gmail.com', secondMail],      
 	html: `
 	Письмо с сайта scadaint.ru
 	Письмо: ${email} ${company} ${msg} ${name} ${tel} ${select}
@@ -89,7 +89,7 @@ router.post("/", async (req, res) => {
 	const select = req.body.select;
 	try {
 	   console.log(select);
-	   await sendForm(email, company, message, name, tel, select);
+	   await sendForm(email, company, message, name, tel, select);  
 	   res.status(200).json({email, company, message, name, tel, select});
 	} catch(err) {
 	 console.log(err)
